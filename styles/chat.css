@@ -1,0 +1,74 @@
+body {
+    background-size: contain;
+    height: 100vh;
+    color: white;
+    background: url("/assets/images/bg.png"), linear-gradient(190deg, #2C3C3B 0.52%, #272727 95.97%);
+}
+
+section {
+    height: calc(100% - 120px);
+    padding: 50px;
+}
+
+section h1 {
+    font-size: 3em;
+}
+
+section h1 span {
+    color: #919561;
+}
+
+section .message-container {
+    height: 75%;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+section .message-container .message {
+    background: #D9D9D9;
+    padding: 20px;
+    color: black;
+    border-radius: 20px;
+    position: relative;
+    width: fit-content;
+}
+
+section .message-container .message .tooltip {
+    width: 20px;
+    height: 30px;
+    background: #d9d9d9;
+    position: absolute;
+    right: 0px;
+    top: 3px;
+    transform: rotate(19deg);
+}
+
+.send-option {
+    margin-top: 20px;
+    width: 100%;
+    position: relative;
+}
+
+.send-option input {
+    width: 100%;
+    border-radius: 29.989px;
+    background: #1D1C1A;
+    border: none;
+    padding: 10px;
+    min-height: 30px;
+    color: white;
+}
+
+.send-option button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    padding: 5px;
+    cursor: pointer;
+}
