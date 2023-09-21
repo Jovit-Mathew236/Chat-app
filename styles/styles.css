@@ -1,7 +1,7 @@
 
 body {
     background-size: contain;
-    height: 100vh;
+    height: 100dvh;
     color: white;
     font-family: larsseit;
     background: url("/assets/images/bg.png"), linear-gradient(190deg, #2C3C3B 0.52%, #272727 95.97%);

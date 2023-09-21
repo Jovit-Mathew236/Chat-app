@@ -22,27 +22,40 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 document.getElementById("send-btn").onclick = async function (e) {
-    e.preventDefault();
+  e.preventDefault();
   const docRef = await addDoc(collection(db, "message"), {
     message: document.getElementById("message-input").value,
+    time: new Date(),
   });
-  alert("message send");
+  document.getElementById("message-input").value = "";
   messageGet();
 };
 
 const messageGet = async function () {
   const querySnapshot = await getDocs(collection(db, "message"));
-  let messages = "";
+  const messagesArray = [];
   querySnapshot.forEach((doc) => {
-    const message = doc.data().message;
-    const messageDiv = `<div class="message">
-    <div class="tooltip"></div>
-    <p>${message}</p>
-</div>`;
-    messages = messages + messageDiv;
+    const data = doc.data();
+    messagesArray.push({
+      message: data.message,
+      time: data.time.toMillis(),
+    });
   });
-  document.getElementById("msgs").innerHTML = messages;
+
+  messagesArray.sort((a, b) => b.time - a.time);
+
+  let messagesHTML = "";
+  messagesArray.forEach((messageObj) => {
+    const message = messageObj.message;
+    const messageDiv = `<div class="message">
+      <div class="tooltip"></div>
+      <p>${message}</p>
+    </div>`;
+    messagesHTML += messageDiv;
+  });
+
+  const messagesElement = document.getElementById("msgs");
+  messagesElement.innerHTML = messagesHTML;
 };
 
-
-window.onload = messageGet()
+window.onload = messageGet;

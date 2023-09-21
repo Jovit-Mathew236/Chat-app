@@ -1,6 +1,6 @@
 body {
     background-size: contain;
-    height: 100vh;
+    height: 100dvh;
     color: white;
     background: url("/assets/images/bg.png"), linear-gradient(190deg, #2C3C3B 0.52%, #272727 95.97%);
 }
@@ -12,6 +12,7 @@ section {
 
 section h1 {
     font-size: 3em;
+    height: 15%;
 }
 
 section h1 span {
