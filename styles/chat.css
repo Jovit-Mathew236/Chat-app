@@ -6,8 +6,8 @@ body {
 }
 
 section {
-    height: calc(100% - 130px);
-    padding: 50px;
+    height: calc(100% - 40px);
+    padding: 20px;
 }
 
 section h1 {
@@ -47,10 +47,12 @@ section .message-container .message {
     margin-top: 20px;
     width: 100%;
     position: relative;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .send-option input {
-    width: 100%;
+    width: 90%;
     border-radius: 29.989px;
     background: #1D1C1A;
     border: none;
@@ -66,7 +68,7 @@ section .message-container .message {
     border: none;
     position: absolute;
     top: 10px;
-    right: -10px;
+    right: 15px;
     padding: 5px;
     cursor: pointer;
 }
