@@ -29,6 +29,16 @@ section .message-container {
 
 }
 
+section .message-container .name {
+    position: absolute;
+    top: 2px;
+    font-size: 8px;
+    right: 3px;
+    font-weight: 800;
+    color: #919561;
+    text-transform: math-auto;
+}
+
 section .message-container::-webkit-scrollbar {
     width: 0px;
     background: transparent;

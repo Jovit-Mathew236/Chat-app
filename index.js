@@ -23,15 +23,22 @@ const db = getFirestore(app);
 
 document.getElementById("send-btn").onclick = async function (e) {
   e.preventDefault();
+  if (document.getElementById("message-input").value === "") {
+    alert("Please enter a message");
+    return;
+  }
   const docRef = await addDoc(collection(db, "message"), {
     message: document.getElementById("message-input").value,
     time: new Date(),
+    name: localStorage.getItem("name"),
   });
   document.getElementById("message-input").value = "";
   messageGet();
 };
 
 const messageGet = async function () {
+  document.getElementById("userNameSpan").textContent =
+    localStorage.getItem("name");
   const querySnapshot = await getDocs(collection(db, "message"));
   const messagesArray = [];
   querySnapshot.forEach((doc) => {
@@ -39,6 +46,7 @@ const messageGet = async function () {
     messagesArray.push({
       message: data.message,
       time: data.time.toMillis(),
+      name: data.name,
     });
   });
 
@@ -46,9 +54,12 @@ const messageGet = async function () {
 
   let messagesHTML = "";
   messagesArray.forEach((messageObj) => {
+    console.log(messageObj);
     const message = messageObj.message;
+    const name = messageObj.name;
     const messageDiv = `<div class="message">
       <div class="tooltip"></div>
+      <p class="name">${name}</p>
       <p>${message}</p>
     </div>`;
     messagesHTML += messageDiv;
