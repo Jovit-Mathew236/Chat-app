@@ -37,6 +37,10 @@ document.getElementById("send-btn").onclick = async function (e) {
 };
 
 const messageGet = async function () {
+  if (localStorage.getItem("name") === null) {
+    window.location.href = "/";
+    return;
+  }
   document.getElementById("userNameSpan").textContent =
     localStorage.getItem("name");
   const querySnapshot = await getDocs(collection(db, "message"));
