@@ -44,11 +44,12 @@ section .form input {
     outline: none;
 }
 
-section .form a {
+section .form button {
     border-radius: 22.244px;
     border: 0.53px solid #505050;
     background: #1D1C1A;
     color: white;
     padding: 10px 50px;
     text-decoration: none;
+    cursor: pointer;
 }
