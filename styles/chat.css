@@ -29,11 +29,25 @@ section .message-container {
 
 }
 
+section .message-container .message-content {
+    margin-right: 20px;
+}
+
 section .message-container .name {
     position: absolute;
     top: 2px;
     font-size: 8px;
-    right: 3px;
+    right: 13px;
+    font-weight: 800;
+    color: #919561;
+    text-transform: math-auto;
+}
+
+section .message-container .time {
+    position: absolute;
+    bottom: 2px;
+    font-size: 7px;
+    right: 13px;
     font-weight: 800;
     color: #919561;
     text-transform: math-auto;
