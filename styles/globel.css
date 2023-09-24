@@ -2,7 +2,7 @@
     font-family: "lersseit";
     src:
         local("lersseit"),
-        url("./assets/fonts/Larsseit.otf") format("opentype")
+        url(../assets/fonts/Larsseit.otf) format("opentype")
 }
 
 * {
