@@ -5,5 +5,5 @@ document.getElementById("startButton").onclick = function () {
     return;
   }
   localStorage.setItem("name", document.getElementById("nameInput").value);
-  window.location.href = "/chat.html";
+  window.location.href = "./chat.html";
 };

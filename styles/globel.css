@@ -2,11 +2,17 @@
     font-family: "lersseit";
     src:
         local("lersseit"),
-        url("/assets/fonts/Larsseit.otf") format("opentype")
+        url("./assets/fonts/Larsseit.otf") format("opentype")
 }
 
 * {
     font-family: lersseit;
     margin: 0%;
     padding: 0%;
+}
+body{
+    background-size: contain;
+    height: 100dvh;
+    color: white;
+    background: url(../assets/images/bg.png), linear-gradient(190deg, #2C3C3B 0.52%, #272727 95.97%);
 }
