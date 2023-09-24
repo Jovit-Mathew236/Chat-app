@@ -2,7 +2,7 @@ body {
     background-size: contain;
     height: 100dvh;
     color: white;
-    background: url("/assets/images/bg.png"), linear-gradient(190deg, #2C3C3B 0.52%, #272727 95.97%);
+    background: url(../assets/images/bg.png), linear-gradient(190deg, #2C3C3B 0.52%, #272727 95.97%);
 }
 
 section {
@@ -37,7 +37,7 @@ section .message-container .name {
     position: absolute;
     top: 2px;
     font-size: 8px;
-    right: 13px;
+    right: 3px;
     font-weight: 800;
     color: #919561;
     text-transform: math-auto;

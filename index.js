@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
 
 import {
+  onSnapshot,
   getFirestore,
   addDoc,
   collection,
@@ -35,7 +36,6 @@ document.getElementById("send-btn").onclick = async function (e) {
   document.getElementById("message-input").value = "";
   messageGet();
 };
-
 const messageGet = async function () {
   if (localStorage.getItem("name") === null) {
     window.location.href = "/";
@@ -43,45 +43,47 @@ const messageGet = async function () {
   }
   document.getElementById("userNameSpan").textContent =
     localStorage.getItem("name");
-  const querySnapshot = await getDocs(collection(db, "message"));
-  const messagesArray = [];
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    messagesArray.push({
-      message: data.message,
-      time: data.time.toMillis(),
-      name: data.name,
+
+  // Subscribe to real-time updates
+  onSnapshot(collection(db, "message"), (snapshot) => {
+    const messagesArray = [];
+    snapshot.forEach((doc) => {
+      const data = doc.data();
+      messagesArray.push({
+        message: data.message,
+        time: data.time.toMillis(),
+        name: data.name,
+      });
     });
+
+    messagesArray.sort((a, b) => b.time - a.time);
+
+    let messagesHTML = "";
+    messagesArray.forEach((messageObj) => {
+      const timestamp = messageObj.time;
+      const date = new Date(timestamp);
+
+      const hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      const amPm = hours >= 12 ? "PM" : "AM";
+
+      const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+
+      const time = `${formattedHours}:${minutes} ${amPm}`;
+      const message = messageObj.message;
+      const name = messageObj.name;
+      const messageDiv = `<div class="message">
+        <div class="tooltip"></div>
+        <p class="name">${name}</p>
+        <p class="message-content">${message}</p>
+        <p class="time">${time}</p>
+      </div>`;
+      messagesHTML += messageDiv;
+    });
+
+    const messagesElement = document.getElementById("msgs");
+    messagesElement.innerHTML = messagesHTML;
   });
-
-  messagesArray.sort((a, b) => b.time - a.time);
-
-  let messagesHTML = "";
-  messagesArray.forEach((messageObj) => {
-    console.log(messageObj);
-    const timestamp = messageObj.time;
-    const date = new Date(timestamp);
-
-    const hours = date.getHours();
-    const minutes = String(date.getMinutes()).padStart(2, "0");
-    const amPm = hours >= 12 ? "PM" : "AM";
-
-    const formattedHours = hours % 12 || 12; // Convert to 12-hour format
-
-    const time = `${formattedHours}:${minutes} ${amPm}`;
-    const message = messageObj.message;
-    const name = messageObj.name;
-    const messageDiv = `<div class="message">
-      <div class="tooltip"></div>
-      <p class="name">${name}</p>
-      <p class="message-content">${message}</p>
-      <p class="time">${time}</p>
-    </div>`;
-    messagesHTML += messageDiv;
-  });
-
-  const messagesElement = document.getElementById("msgs");
-  messagesElement.innerHTML = messagesHTML;
 };
 
 window.onload = messageGet;
