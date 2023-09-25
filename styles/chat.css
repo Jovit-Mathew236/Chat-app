@@ -40,7 +40,7 @@ section .message-container .message-content {
 section .message-container .name {
     position: absolute;
     top: 2px;
-    font-size: 8px;
+    font-size: 12px;
     right: 3px;
     font-weight: 800;
     color: #44462b;
@@ -50,7 +50,7 @@ section .message-container .name {
 section .message-container .time {
     position: absolute;
     bottom: 2px;
-    font-size: 7px;
+    font-size: 8px;
     right: 13px;
     font-weight: 800;
     color: #44462b;
