@@ -25,7 +25,7 @@ const db = getFirestore(app);
 document.getElementById("send-btn").onclick = async function (e) {
   e.preventDefault();
   if (document.getElementById("message-input").value === "") {
-    alert("Please enter a message");
+    alert("Type anything");
     return;
   }
   const docRef = await addDoc(collection(db, "message"), {
@@ -38,7 +38,7 @@ document.getElementById("send-btn").onclick = async function (e) {
 };
 const messageGet = async function () {
   if (localStorage.getItem("name") === null) {
-    window.location.href = "/";
+    window.location.href = "./";
     return;
   }
   document.getElementById("userNameSpan").textContent =
