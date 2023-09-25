@@ -34,6 +34,7 @@ section .message-container {
 
 section .message-container .message-content {
     margin-right: 20px;
+    word-break: break-word;
 }
 
 section .message-container .name {
