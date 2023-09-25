@@ -43,7 +43,6 @@ const messageGet = async function () {
   }
   const currentHour = new Date().getHours();
 
-  // Define variables for morning, afternoon, and evening greetings
   let greeting = "";
 
   if (currentHour >= 5 && currentHour < 12) {
@@ -53,7 +52,8 @@ const messageGet = async function () {
   } else {
     greeting = "Good evening,";
   }
-  document.getElementById("greating").textContent = `${greeting}`;
+
+  document.getElementById("greeting").textContent = `${greeting}`;
   document.getElementById("userNameSpan").textContent =
     localStorage.getItem("name");
 
