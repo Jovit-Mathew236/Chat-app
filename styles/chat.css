@@ -43,7 +43,7 @@ section .message-container .name {
     font-size: 8px;
     right: 3px;
     font-weight: 800;
-    color: #919561;
+    color: #44462b;
     text-transform: math-auto;
 }
 
@@ -53,7 +53,7 @@ section .message-container .time {
     font-size: 7px;
     right: 13px;
     font-weight: 800;
-    color: #919561;
+    color: #44462b;
     text-transform: math-auto;
 }
 
