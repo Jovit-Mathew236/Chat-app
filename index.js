@@ -6,8 +6,10 @@ import {
   addDoc,
   collection,
   getDocs,
+  query,
+  orderBy,
 } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-firestore.js";
-
+import { getAuth } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js";
 const firebaseConfig = {
   apiKey: "AIzaSyCIl_Hlvh4yCt_Rp_AyYD_WRtU_fZfAWu0",
   authDomain: "chatapp-7602c.firebaseapp.com",
@@ -19,6 +21,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app); // Initialize Firebase Authentication
 
 const db = getFirestore(app);
 
@@ -37,10 +40,13 @@ document.getElementById("send-btn").onclick = async function (e) {
   messageGet();
 };
 const messageGet = async function () {
-  if (localStorage.getItem("name") === null) {
-    window.location.href = "./";
+  const user = localStorage.getItem("name");
+
+  if (!user) {
+    window.location.href = "./"; // Redirect to the home page if no user is authenticated
     return;
   }
+
   const currentHour = new Date().getHours();
 
   let greeting = "";
@@ -57,46 +63,53 @@ const messageGet = async function () {
   document.getElementById("userNameSpan").textContent =
     localStorage.getItem("name");
 
+  let currentDate = null; // Track the current date
+  const messagesElement = document.getElementById("msgs");
+  let messagesHTML = "";
+
   // Subscribe to real-time updates
-  onSnapshot(collection(db, "message"), (snapshot) => {
-    const messagesArray = [];
-    snapshot.forEach((doc) => {
-      const data = doc.data();
-      messagesArray.push({
-        message: data.message,
-        time: data.time.toMillis(),
-        name: data.name,
+  onSnapshot(
+    query(collection(db, "message"), orderBy("time", "desc")),
+    (snapshot) => {
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        const messageDate = new Date(data.time.toMillis());
+
+        // Check if the date has changed, and add a date separator
+        if (
+          !currentDate ||
+          currentDate.toDateString() !== messageDate.toDateString()
+        ) {
+          currentDate = messageDate;
+          const messageDateString = messageDate.toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+          messagesHTML += `<p class="date">${messageDateString}</p>`;
+        }
+
+        const hours = messageDate.getHours();
+        const minutes = String(messageDate.getMinutes()).padStart(2, "0");
+        const amPm = hours >= 12 ? "PM" : "AM";
+
+        const formattedHours = hours % 12 || 12; // Convert to 12-hour format
+
+        const time = `${formattedHours}:${minutes} ${amPm}`;
+        const message = data.message;
+        const name = data.name;
+        const messageDiv = `<div class="message">
+          <p class="name">${name}</p>
+          <p class="message-content">${message}</p>
+          <p class="time">${time}</p>
+        </div>`;
+        messagesHTML += messageDiv;
       });
-    });
 
-    messagesArray.sort((a, b) => b.time - a.time);
-
-    let messagesHTML = "";
-    messagesArray.forEach((messageObj) => {
-      const timestamp = messageObj.time;
-      const date = new Date(timestamp);
-
-      const hours = date.getHours();
-      const minutes = String(date.getMinutes()).padStart(2, "0");
-      const amPm = hours >= 12 ? "PM" : "AM";
-
-      const formattedHours = hours % 12 || 12; // Convert to 12-hour format
-
-      const time = `${formattedHours}:${minutes} ${amPm}`;
-      const message = messageObj.message;
-      const name = messageObj.name;
-      const messageDiv = `<div class="message">
-        <div class="tooltip"></div>
-        <p class="name">${name}</p>
-        <p class="message-content">${message}</p>
-        <p class="time">${time}</p>
-      </div>`;
-      messagesHTML += messageDiv;
-    });
-
-    const messagesElement = document.getElementById("msgs");
-    messagesElement.innerHTML = messagesHTML;
-  });
+      messagesElement.innerHTML = messagesHTML;
+    }
+  );
 };
 
 window.onload = messageGet;
