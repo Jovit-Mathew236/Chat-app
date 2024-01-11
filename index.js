@@ -42,10 +42,10 @@ document.getElementById("send-btn").onclick = async function (e) {
 const messageGet = async function () {
   const user = localStorage.getItem("name");
 
-  if (!user) {
-    window.location.href = "./"; // Redirect to the home page if no user is authenticated
-    return;
-  }
+  // if (!user) {
+  //   window.location.href = "./"; // Redirect to the home page if no user is authenticated
+  //   return;
+  // }
 
   const currentHour = new Date().getHours();
 
