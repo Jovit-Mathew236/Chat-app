@@ -28,7 +28,7 @@ section h1 #userNameSpan {
 section .message-container {
     height: 93%;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 10px;
     align-items: flex-end;
     overflow-y: scroll;
@@ -37,11 +37,13 @@ section .message-container {
 
 section .message-container .date {
     text-align: center;
-    background: #000;
+    background: #2b2b2b63;
     display: flex;
     justify-content: center;
     padding: 10px;
-    border-radius: 10px;
+    /* border-radius: 10px; */
+    width: -webkit-fill-available;
+    margin: 10px 0px 30px;
 }
 
 section .message-container .message-content {

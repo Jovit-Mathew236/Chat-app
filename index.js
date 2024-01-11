@@ -69,7 +69,7 @@ const messageGet = async function () {
 
   // Subscribe to real-time updates
   onSnapshot(
-    query(collection(db, "message"), orderBy("time", "desc")),
+    query(collection(db, "message"), orderBy("time")),
     (snapshot) => {
       snapshot.forEach((doc) => {
         const data = doc.data();
